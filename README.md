@@ -8,7 +8,11 @@ To use TopArray, ensure you have TD compatible Python and PyTorch with CUDA inst
 
 ## How To Use
 
-Load ExampleTensorIO.toe and toggle the Active parameter on the TensorIO componenent. See component network and TorchExt.py for details on how to interact with the TopArrayInterface and the TopCUDAInterface.
+Use `git clone https://github.com/IntentDev/TopArray.git` or download zip file of the repository. 
+
+Load ExampleTensorIO.toe and toggle the Active parameter on the TensorIO componenent. 
+
+See component network and TorchExt.py for details on how to interact with the TopArrayInterface and the TopCUDAInterface.
 
 # Documentation
 
