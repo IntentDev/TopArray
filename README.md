@@ -1,6 +1,6 @@
 # TopArray
 
-TopArray is a Python module designed to facilitate the interaction between Python-based tensor operations and TouchDesigner TOPs. It provides a workflow for referencing CUDA memory from TOPs as tensors and for copying tensor to a script TOP.
+TopArray is a Python module designed to facilitate the interaction between Python/PyTorch tensor operations and TouchDesigner TOPs. It provides a workflow for referencing CUDA memory from TOPs as tensors and for copying a tensor's data to a scriptTOP efficiently.
 
 ## Installation
 
