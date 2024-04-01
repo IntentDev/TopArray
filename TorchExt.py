@@ -31,7 +31,17 @@ class TorchExt:
 
 		# create a top array interface for the input and output
 		self.input_array = toparray.TopArrayInterface(self.to_tensorTop, self.Stream.cuda_stream)
-		self.Output = toparray.TopCUDAInterface(self.to_tensorTop, self.Stream.cuda_stream)
+
+		cudamem = self.to_tensorTop.cudaMemory()
+
+		# using the .shape attribute of the cudamem object to get the shape of the array
+		# but all these value can be set manually, see toparray.py for details on arguments
+		self.Output = toparray.TopCUDAInterface(
+			cudamem.shape.width,
+			cudamem.shape.height,
+			cudamem.shape.numComps,
+			cudamem.shape.dataType, 
+			self.Stream.cuda_stream)
 
 		# set the output to the input on Setup
 		with torch.cuda.stream(self.Stream):

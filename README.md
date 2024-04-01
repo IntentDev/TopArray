@@ -41,7 +41,10 @@ Handles copying data from an array or tensor to a TouchDesigner TOP.
 
 ### Parameters
 
-- **top** (`td.TOP`): The TOP to copy the data to.
+- **width** (`int`): width of the array that will be used to set the image
+- **height** (`int`): height of the array that will be used to set the image
+- **num_comps** (`int`): number of color components/channels in the array
+- **dtype** (`np.dtype`): NumPy data type of the array
 - **stream** (`int`, optional): The CUDA stream to use for transfers. Defaults to `0`.
 
 ### Methods

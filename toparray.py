@@ -109,23 +109,33 @@ class TopCUDAInterface:
 
 	Parameters
 	----------
-	top : td.TOP
-		The TOP to copy the data to
+	width : int
+		The width of the array
+
+	height : int
+		The height of the array
+
+	num_comps : int
+		The number of components in the array
+		
+	dtype : np.dtype
+		The data type of the array
+
 	stream : int, optional
+		The CUDA stream to use for transfers. The default is 0.
 
 	"""
-	
-	def __init__(self, top, stream=0):
-		self.top = top
+
+	def __init__(self, width, height, num_comps, dtype, stream=0):
 		self.image = None
 		self.stream = stream
-		self.mem_shape = self.top.cudaMemory().shape
-		self.width = self.mem_shape.width
-		self.height = self.mem_shape.height
-		self.num_comps = self.mem_shape.numComps
-		self.data_type = self.mem_shape.dataType
-		self.bytes_per_comp = np.dtype(self.mem_shape.dataType).itemsize
-		self.size = self.width * self.height * self.num_comps * self.bytes_per_comp
+		self.mem_shape = CUDAMemoryShape()
+		self.mem_shape.width = width
+		self.mem_shape.height = height
+		self.mem_shape.numComps = num_comps
+		self.mem_shape.dataType = dtype
+		self.bytes_per_comp = np.dtype(dtype).itemsize
+		self.size = width * height * num_comps * self.bytes_per_comp
 
 	def copyFromTensor(self, scriptOP):
 		"""
@@ -136,11 +146,11 @@ class TopCUDAInterface:
 		scriptOP : td.scriptOP
 			The scriptTOP to copy the tensor to
 		"""
-
-		scriptOP.copyCUDAMemory(
-			self.image.data_ptr(), 
-			self.size, 
-			self.mem_shape,
-			stream=self.stream
-		)
+		if self.image is not None:
+			scriptOP.copyCUDAMemory(
+				self.image.data_ptr(), 
+				self.size, 
+				self.mem_shape,
+				stream=self.stream
+			)
 		return
